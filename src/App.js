@@ -1,4 +1,4 @@
-import { Admin, Resource, ListGuesser, EditGuesser } from 'react-admin';
+import { Admin, Resource, ListGuesser, EditGuesser, ShowGuesser } from 'react-admin';
 import simpleRestProvider from 'ra-data-simple-rest'
 import { UserList } from './components/Users/UserList';
 import { UserEdit } from './components/Users/UserEdit';
@@ -9,6 +9,7 @@ import polyglotI18nProvider from 'ra-i18n-polyglot';
 import russianMessages from 'ra-language-russian';
 import Test from './lists/Test';
 import './App.css';
+import {AppointmentShow} from './components/Appointments/AppointemntShow';
 
 const dataProvider = simpleRestProvider('http://localhost:5000/api/admin');
 const i18nProvider = polyglotI18nProvider(() => russianMessages, 'ru');
@@ -22,7 +23,7 @@ function App() {
             disableTelemetry
      >
         <Resource name='users' options={{ label: 'Пользователи' }} list={UserList} edit={UserEdit}/>
-        <Resource name='appointments' options={{ label: 'Записи' }} list={AppointmentList} edit={AppointmentEdit} />
+        <Resource name='appointments' options={{ label: 'Записи' }} list={AppointmentList} edit={AppointmentEdit} show={AppointmentShow}/>
     </Admin>
   );
 }

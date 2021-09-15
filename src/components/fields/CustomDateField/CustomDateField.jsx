@@ -7,7 +7,7 @@ import {ru} from 'date-fns/locale'
 const useStyles = makeStyles({
   date: {
     fontWeight: '700',
-    fontSize: '1rem',
+    fontSize: '0.95rem',
   },
   day: {
     fontSize: '0.95rem',

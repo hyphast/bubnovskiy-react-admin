@@ -24,8 +24,8 @@ export const AppointmentList = props => (
       {/*</ArrayField>*/}
       {/*<PatientsField source="date" label='last'/>*/}
       <NumberField source="numberPatients" label="Количество пациентов"/>
-      <EditButton basePath="/appointments" label='Изменить'/>
-      <ShowButton basePath="/comments" label="Подробнее"/>
+      <EditButton label='Изменить'/>
+      <ShowButton label="Подробнее"/>
     </Datagrid>
   </List>
 );

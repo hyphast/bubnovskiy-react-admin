@@ -1,12 +1,19 @@
 import React from 'react';
-import {Edit, SimpleForm, TextInput} from 'react-admin';
+import {Edit, SaveButton, SimpleForm, TextInput} from 'react-admin';
+import {Toolbar} from '@material-ui/core';
+
+const UserEditToolbar = props => (
+  <Toolbar {...props} >
+      <SaveButton />
+  </Toolbar>
+);
 
 export const UserEdit = props => (
     <Edit 
         title="Детальная информация"
         {...props}
     >
-        <SimpleForm>
+        <SimpleForm toolbar={<UserEditToolbar/>}>
             <TextInput source="id" disabled/>
             <TextInput source="firstName" />
             <TextInput source="lastName" />
