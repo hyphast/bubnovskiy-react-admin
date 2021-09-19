@@ -7,7 +7,7 @@ import {
   DateField,
   ArrayField,
   Datagrid,
-  ReferenceField, FunctionField, TopToolbar, ListButton, ShowButton,
+  ReferenceField, FunctionField, TopToolbar, ListButton, ShowButton, SingleFieldList, ReferenceArrayField,
 } from 'react-admin';
 import {format} from 'date-fns';
 import {ru} from 'date-fns/locale';
@@ -22,25 +22,33 @@ const PostEditActions = ({basePath, data, resource}) => (
 
 export const AppointmentShow = props => (
   <Show
-    title='Запись'
+    title="Запись"
     actions={<PostEditActions/>}
     {...props}
   >
     <SimpleShowLayout>
       <CustomDateField source="date" label="Дата"/>
-      <ArrayField source="appointments" label='Расписание на этот день'>
+      <ArrayField source="appointments" label="Расписание на этот день">
         <Datagrid>
-          <FunctionField label="Время" render={record => format(new Date(record['time']), 'HH:mm', {locale: ru})} />
-          <NumberField source="numberPatients" label='Количество пациентов'/>
-          <ArrayField source="patients" label='Пациенты'>
-            <Datagrid>
-              <NumberField source="patientId" label='id'/>
-              <TextField source="patientName" label='Имя'/>
-            </Datagrid>
+          <FunctionField label="Время" render={record => format(new Date(record['time']), 'HH:mm', {locale: ru})}/>
+          <NumberField source="numberPatients" label="Количество пациентов"/>
+          <ArrayField source="patients" label="Пациенты">
+            <SingleFieldList>
+              <ReferenceField reference="users" source="patientId" link='show'>
+                <TextField source="firstName"/>
+              </ReferenceField>
+            </SingleFieldList>
           </ArrayField>
+          {/*<ArrayField source="patients" label="Номер телефона">*/}
+          {/*  <SingleFieldList>*/}
+          {/*    <ReferenceField label="Номер телефона" source='patientId' reference="users">*/}
+          {/*      <TextField source="phoneNumber" />*/}
+          {/*    </ReferenceField>*/}
+          {/*  </SingleFieldList>*/}
+          {/*</ArrayField>*/}
         </Datagrid>
       </ArrayField>
-      <NumberField source="numberAllPatients" label='Общее количество пациентов'/>
+      <NumberField source="numberAllPatients" label="Общее количество пациентов"/>
     </SimpleShowLayout>
   </Show>
 );

@@ -28,10 +28,10 @@ const PostEditActions = ({basePath, data, resource}) => (
 
 const Aside = ({record}) => (
   <div style={{width: 200, margin: '1em'}}>
-    <Typography variant="h6">Запись</Typography>
+    <Typography variant="h6">Изменение записи</Typography>
     {record && (
       <Typography variant="body2">
-        Creation date: {record.date}
+        {format(new Date(record['date']), 'd MMMM yyyy', {locale: ru})}
       </Typography>
     )}
   </div>
@@ -55,7 +55,6 @@ export const AppointmentEdit = (props) => (
               {/*<ReferenceField label="User" source="patientId" reference="users">*/}
               {/*  <TextField source="firstName" />*/}
               {/*</ReferenceField>*/}
-              <TextInput source="patientId" label='id' disabled/>
               <TextInput source="patientName" label='Имя' disabled/>
             </SimpleFormIterator>
           </ArrayInput>

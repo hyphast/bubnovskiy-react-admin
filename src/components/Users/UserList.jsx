@@ -1,16 +1,34 @@
 import React from 'react';
-import { List, Datagrid, TextField, EmailField, TextInput } from 'react-admin';
+import { List, Datagrid, TextField, EmailField, TextInput, downloadCSV } from 'react-admin';
+import jsonExport from 'jsonexport/dist';
 
 const postFilters = [
-    <TextInput label="Search" source="q" alwaysOn />,
+    <TextInput label="Поиск" source="q" alwaysOn />,
     <TextInput label="Title" source="title" defaultValue="Hello, World!" />,
 ];
+
+const exporter = users => {
+    const BOM = '\uFEFF'
+    const usersForExport = users.map(user => {
+        const { _id, id, activationLink, password, __v, ...userForExport } = user; // omit id, activationLink, password, __v
+        // userForExport['Имя'] = user.author.name; // add a field
+        return userForExport;
+    });
+    jsonExport(usersForExport, {
+        headers: ['firstName', 'lastName', 'gender', 'phoneNumber', 'isActivated', 'email'] // order fields in the export
+    }, (err, csv) => {
+        downloadCSV(`${BOM} ${csv}`, 'Клиенты ООО \'Здоровье\''); // download file
+        if (err) {
+            console.log('Error trying to export list')
+        }
+    });
+};
 
 export const UserList = props => (
     <List 
         title="Клиенты"
         filters={postFilters}
-        sort={{ field: "firstName", order: "ASC" }}
+        exporter={exporter}
         {...props}
     >
         <Datagrid rowClick="edit">

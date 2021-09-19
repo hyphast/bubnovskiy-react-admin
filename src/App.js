@@ -10,6 +10,7 @@ import russianMessages from 'ra-language-russian';
 import Test from './lists/Test';
 import './App.css';
 import {AppointmentShow} from './components/Appointments/AppointemntShow';
+import {UserShow} from './components/Users/UserShow';
 
 const dataProvider = simpleRestProvider('http://localhost:5000/api/admin');
 const i18nProvider = polyglotI18nProvider(() => russianMessages, 'ru');
@@ -22,7 +23,7 @@ function App() {
             dashboard={Dashboard}
             disableTelemetry
      >
-        <Resource name='users' options={{ label: 'Пользователи' }} list={UserList} edit={UserEdit}/>
+        <Resource name='users' options={{ label: 'Пользователи' }} list={UserList} edit={UserEdit} show={UserShow}/>
         <Resource name='appointments' options={{ label: 'Записи' }} list={AppointmentList} edit={AppointmentEdit} show={AppointmentShow}/>
     </Admin>
   );
