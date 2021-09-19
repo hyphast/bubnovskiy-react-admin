@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Datagrid, TextField, EmailField, TextInput, downloadCSV } from 'react-admin';
+import {List, Datagrid, TextField, EmailField, TextInput, downloadCSV, EditButton, ShowButton} from 'react-admin';
 import jsonExport from 'jsonexport/dist';
 
 const postFilters = [
@@ -29,15 +29,18 @@ export const UserList = props => (
         title="Клиенты"
         filters={postFilters}
         exporter={exporter}
+        // bulkActionButtons={false}
         {...props}
     >
-        <Datagrid rowClick="edit">
+        <Datagrid rowClick="show">
             <TextField source="firstName" label='Имя' />
             <TextField source="lastName" label='Фамилия' />
             <TextField source="gender" label='Пол' />
             <EmailField source="email"  label='Email' />
             <TextField source="phoneNumber" label='Телефон' />
             {/* <TextField source="isActivated" /> */}
+            <EditButton label='Изменить'/>
+            <ShowButton label="Подробнее"/>
         </Datagrid>
     </List>
 );

@@ -33,20 +33,16 @@ const ListActions = () => (
   </Box>
 );
 
-const views = { views: 0 };
-
-const ResetViewsButton = (props) => (
-  <BulkUpdateButton
-    {...props}
-    label="Reset Views"
-    data={views}
-    icon={<VisibilityOff/>}
-  />
-);
+const views = { numberAllPatients: 12 };
 
 const AppointmentsBulkActionButtons = props => (
   <>
-    <ResetViewsButton label="Reset Views" {...props} />
+    <BulkUpdateButton
+      {...props}
+      label="Закрыть запись"
+      data={views}
+      icon={<VisibilityOff/>}
+    />
   </>
 );
 
@@ -56,9 +52,13 @@ export const AppointmentList = props => (
     sort={{ field: 'date', order: 'ASC' }}
     exporter={exporter}
     actions={<ListActions/>}
+    bulkActionButtons={<AppointmentsBulkActionButtons />}
     {...props}
   >
-    <Datagrid rowClick="expand" expand={<AppointmentPatients source='appointments'/>}>
+    <Datagrid rowClick="show"
+              expand={<AppointmentPatients source='appointments'/>}
+              isRowExpandable={row => row.numberAllPatients > 0}
+    >
       <CustomDateField source="date" label="Дата"/>
       {/*<ArrayField source="appointments">*/}
       {/*  <SingleFieldList>*/}

@@ -14,7 +14,7 @@ import {ru} from 'date-fns/locale';
 import {CustomDateField} from '../fields/CustomDateField/CustomDateField';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 
-const PostEditActions = ({basePath, data, resource}) => (
+const AppEditActions = ({basePath, data, resource}) => (
   <TopToolbar>
     <ListButton basePath={basePath} label="Назад" icon={<ChevronLeft/>}/>
   </TopToolbar>
@@ -23,7 +23,7 @@ const PostEditActions = ({basePath, data, resource}) => (
 export const AppointmentShow = props => (
   <Show
     title="Запись"
-    actions={<PostEditActions/>}
+    actions={<AppEditActions/>}
     {...props}
   >
     <SimpleShowLayout>
