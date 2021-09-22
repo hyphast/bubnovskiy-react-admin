@@ -4,12 +4,12 @@ import { UserList } from './components/Users/UserList';
 import { UserEdit } from './components/Users/UserEdit';
 import {Dashboard} from './components/Dashboard/Dashboard';
 import {AppointmentList} from './components/Appointments/AppointmentList';
-import {AppointmentEdit} from './components/Appointments/AppointmentEdit';
+import {AppointmentEdit} from './components/Appointments/AppointmentEdit/AppointmentEdit';
 import polyglotI18nProvider from 'ra-i18n-polyglot';
 import russianMessages from 'ra-language-russian';
 import Test from './lists/Test';
 import './App.css';
-import {AppointmentShow} from './components/Appointments/AppointemntShow';
+import {AppointmentShow} from './components/Appointments/AppointmentShow/AppointemntShow';
 import {UserShow} from './components/Users/UserShow';
 
 const dataProvider = simpleRestProvider('http://localhost:5000/api/admin');

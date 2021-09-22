@@ -11,19 +11,14 @@ import {
 } from 'react-admin';
 import {format} from 'date-fns';
 import {ru} from 'date-fns/locale';
-import {CustomDateField} from '../fields/CustomDateField/CustomDateField';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
-
-const AppEditActions = ({basePath, data, resource}) => (
-  <TopToolbar>
-    <ListButton basePath={basePath} label="Назад" icon={<ChevronLeft/>}/>
-  </TopToolbar>
-);
+import {CustomDateField} from '../../fields/CustomDateField/CustomDateField';
+import {AppShowActions} from './AppShowActions';
+import Grid from '@material-ui/core/Grid';
 
 export const AppointmentShow = props => (
   <Show
     title="Запись"
-    actions={<AppEditActions/>}
+    actions={<AppShowActions/>}
     {...props}
   >
     <SimpleShowLayout>
@@ -33,9 +28,10 @@ export const AppointmentShow = props => (
           <FunctionField label="Время" render={record => format(new Date(record['time']), 'HH:mm', {locale: ru})}/>
           <NumberField source="numberPatients" label="Количество пациентов"/>
           <ArrayField source="patients" label="Пациенты">
-            <SingleFieldList>
-              <ReferenceField reference="users" source="patientId" link='show'>
-                <TextField source="firstName"/>
+            <SingleFieldList style={{display: 'flex', flexDirection: 'column'}}>
+              <ReferenceField reference="users" source="id" link='show'>
+                {/*<TextField source="firstName"/>*/}
+                  <FunctionField label="Имя" render={record => `${record.firstName} ${record.lastName}`} />
               </ReferenceField>
             </SingleFieldList>
           </ArrayField>

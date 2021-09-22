@@ -14,20 +14,13 @@ import {
 } from 'react-admin';
 import ChevronLeft from '@material-ui/icons/ChevronLeft'
 import {Typography} from '@material-ui/core';
-import {CustomDateField} from '../fields/CustomDateField/CustomDateField';
+import {CustomDateField} from '../../fields/CustomDateField/CustomDateField';
 import {format} from 'date-fns';
 import {ru} from 'date-fns/locale'
 import { TimeInput } from 'react-admin-date-inputs2';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
-
-const PostEditActions = ({basePath, data, resource}) => (
-  <TopToolbar>
-    <ListButton basePath={basePath} label="Назад" icon={<ChevronLeft/>}/>
-    <ShowButton basePath={basePath} record={data}/>
-    {/* Add your custom actions */}
-  </TopToolbar>
-);
+import {AppEditActions} from './AppEditActions';
 
 const Aside = ({record}) => (
   <div style={{width: 200, margin: '1em'}}>
@@ -40,13 +33,13 @@ const Aside = ({record}) => (
   </div>
 );
 
-const OptionRenderer = choice => `${choice.record.firstName} ${choice.record.lastName} (+7${choice.record.phoneNumber})`;
+const OptionRenderer = choice => `${choice.record.firstName} ${choice.record.lastName} ${choice.record.phoneNumber}`;
 const inputText = choice => `${choice.firstName} ${choice.lastName}`;
 
 export const AppointmentEdit = (props) => {
   return <Edit
     aside={<Aside/>}
-    actions={<PostEditActions/>}
+    actions={<AppEditActions/>}
     title="Изменение записи"
     {...props}
   >
@@ -67,28 +60,28 @@ export const AppointmentEdit = (props) => {
                        providerOptions={{utils: DateFnsUtils}}
             />
 
-            <NumberInput source="numberPatients" label='Количество пациентов'/>
+            <NumberInput min={0} max={12} source="numberPatients" label='Количество пациентов'/>
             <ArrayInput source="patients" label='Пациент'>
               <SimpleFormIterator>
-                {/*<TextInput source="patientName" label='Имя'/>*/}
+                {/*<TextInput source="patientName" label='Имя' disabled/>*/}
                 <ReferenceInput
-                  source="firstName"
+                  source="id"
                   reference="users"
-                  label='Пациент'
+                  label='[Имя] [Фамилия] [Номер телефона без +7]'
                   fullWidth
                 >
                   <AutocompleteInput
                     matchSuggestion={(filterValue, suggestion) => true}
                     optionText={<OptionRenderer />}
-                    // optionText='firstName'
                     inputText={inputText}
                     options={{ fullWidth: true }}
                     emptyText='Не выбран'
+                    suggestionLimit={16}
+                    resettable
                   />
                 </ReferenceInput>
               </SimpleFormIterator>
             </ArrayInput>
-
           </SimpleFormIterator>
         </ArrayInput>
       </MuiPickersUtilsProvider>

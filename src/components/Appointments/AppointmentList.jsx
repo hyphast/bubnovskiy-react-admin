@@ -46,6 +46,10 @@ const AppointmentsBulkActionButtons = props => (
   </>
 );
 
+const appRowStyle = (record, index) => ({
+  backgroundColor: record.numberAllPatients > 11 ? '#efe' : 'white',
+})
+
 export const AppointmentList = props => (
   <List
     title="Записи"
@@ -53,6 +57,7 @@ export const AppointmentList = props => (
     exporter={exporter}
     actions={<ListActions/>}
     bulkActionButtons={<AppointmentsBulkActionButtons />}
+    rowStyle={appRowStyle}
     {...props}
   >
     <Datagrid rowClick="show"

@@ -15,13 +15,12 @@ import {BackButton} from '../common/BackButtonAction/BackButtonAction';
 const UserShowActions = ({basePath, data, resource}) => (
   <TopToolbar>
     <BackButton
-      // variant='outlined'
-      // color='secondary'
-      style={{ color: 'blue' }}
+      style={{ color: '#3f51b5', position: 'relative', top: '-4px' }}
+      // icon={<ChevronLeft/>}
     >
       НАЗАД
     </BackButton>
-    <ListButton basePath={basePath} label="К списку" icon={<ChevronLeft/>}/>
+    <ListButton basePath={basePath} label="К списку" />
     <EditButton basePath={basePath} record={data}/>
   </TopToolbar>
 );
