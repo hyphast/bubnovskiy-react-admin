@@ -23,6 +23,7 @@ export const AppointmentShow = props => (
   >
     <SimpleShowLayout>
       <CustomDateField source="date" label="Дата"/>
+      {/*<DateField source="date" label="Дата"/>*/}
       <ArrayField source="appointments" label="Расписание на этот день">
         <Datagrid>
           <FunctionField label="Время" render={record => format(new Date(record['time']), 'HH:mm', {locale: ru})}/>
