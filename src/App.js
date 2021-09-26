@@ -12,7 +12,7 @@ import './App.css';
 import {AppointmentShow} from './components/Appointments/AppointmentShow/AppointemntShow';
 import {UserShow} from './components/Users/UserShow';
 
-const dataProvider = simpleRestProvider('http://localhost:5000/api/admin');
+const dataProvider = simpleRestProvider('http://bubnovskiy30.hopto.org/api/admin');
 const i18nProvider = polyglotI18nProvider(() => russianMessages, 'ru');
 
 function App() {
