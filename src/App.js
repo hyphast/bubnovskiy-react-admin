@@ -14,7 +14,7 @@ import {UserShow} from './components/Users/UserShow';
 
 let apiUrl;
 if (process.env.NODE_ENV === 'production') {
-  apiUrl = 'http://bubnovskiy30/api/admin';
+  apiUrl = 'http://bubnovskiy30.hopto.org/api/admin';
 } else {
   apiUrl = 'http://localhost:5000/api/admin';
 }
