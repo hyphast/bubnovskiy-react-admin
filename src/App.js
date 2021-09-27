@@ -12,7 +12,13 @@ import './App.css';
 import {AppointmentShow} from './components/Appointments/AppointmentShow/AppointemntShow';
 import {UserShow} from './components/Users/UserShow';
 
-const dataProvider = simpleRestProvider('http://localhost:5000/api/admin');
+if (process.env.NODE_ENV === 'production') {
+  const apiUrl = 'http://bubnovskiy30/api/admin';
+} else {
+  const apiUrl = 'http://localhost:5000/api/admin';
+}
+
+const dataProvider = simpleRestProvider(apiUrl);
 const i18nProvider = polyglotI18nProvider(() => russianMessages, 'ru');
 
 function App() {
