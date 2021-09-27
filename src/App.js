@@ -12,17 +12,14 @@ import './App.css';
 import {AppointmentShow} from './components/Appointments/AppointmentShow/AppointemntShow';
 import {UserShow} from './components/Users/UserShow';
 
-<<<<<<< HEAD
+let apiUrl;
 if (process.env.NODE_ENV === 'production') {
-  const apiUrl = 'http://bubnovskiy30/api/admin';
+  apiUrl = 'http://bubnovskiy30/api/admin';
 } else {
-  const apiUrl = 'http://localhost:5000/api/admin';
+  apiUrl = 'http://localhost:5000/api/admin';
 }
 
 const dataProvider = simpleRestProvider(apiUrl);
-=======
-const dataProvider = simpleRestProvider('http://bubnovskiy30.hopto.org/api/admin');
->>>>>>> 132fa0284a4a78050b4f5a84c61430693d51bbc7
 const i18nProvider = polyglotI18nProvider(() => russianMessages, 'ru');
 
 function App() {
