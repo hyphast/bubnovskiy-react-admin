@@ -47,7 +47,7 @@ const AppointmentsBulkActionButtons = props => (
 );
 
 const appRowStyle = (record, index) => ({
-  backgroundColor: record.numberAllPatients > 11 ? '#efe' : 'white',
+  backgroundColor: record.numberAllPatients === 12 ? 'red' : 'white',
 })
 
 export const AppointmentList = props => (
@@ -61,8 +61,8 @@ export const AppointmentList = props => (
     {...props}
   >
     <Datagrid rowClick="show"
-              expand={<AppointmentPatients source='appointments'/>}
-              isRowExpandable={row => row.numberAllPatients > 0}
+              // expand={<AppointmentPatients source='appointments'/>}
+              // isRowExpandable={row => row.numberAllPatients > 0}
     >
       <CustomDateField source="date" label="Дата"/>
       {/*<ArrayField source="appointments">*/}
@@ -76,7 +76,7 @@ export const AppointmentList = props => (
       {/*  </SingleFieldList>*/}
       {/*</ArrayField>*/}
       {/*<PatientsField source="date" label='last'/>*/}
-      <NumberField source="numberAllPatients" label="Количество пациентов"/>
+      <NumberField source="numberAllPatients" label="Общее количество пациентов"/>
       <EditButton label='Изменить'/>
       <ShowButton label="Подробнее"/>
     </Datagrid>

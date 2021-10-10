@@ -21,6 +21,7 @@ import { TimeInput } from 'react-admin-date-inputs2';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import {AppEditActions} from './AppEditActions';
+import {MaxPatientsNumberInput} from './MaxPatientsNumberInput';
 
 const Aside = ({record}) => (
   <div style={{width: 200, margin: '1em'}}>
@@ -37,6 +38,7 @@ const OptionRenderer = choice => `${choice.record.firstName} ${choice.record.las
 const inputText = choice => `${choice.firstName} ${choice.lastName}`;
 
 export const AppointmentEdit = (props) => {
+
   return <Edit
     aside={<Aside/>}
     actions={<AppEditActions/>}
@@ -60,8 +62,9 @@ export const AppointmentEdit = (props) => {
                        providerOptions={{utils: DateFnsUtils}}
             />
 
-            <NumberInput min={0} max={12} source="numberPatients" label='Количество пациентов'/>
-            <ArrayInput source="patients" label='Пациент'>
+            <MaxPatientsNumberInput source="maxNumberPatients"/>
+            {/*<NumberInput min={0} max={12} initialValue={12} source="maxNumberPatients" label='Максимальное кол-во пациентов'/>*/}
+            <ArrayInput source="patients" label='Пациенты'>
               <SimpleFormIterator>
                 {/*<TextInput source="patientName" label='Имя' disabled/>*/}
                 <ReferenceInput
