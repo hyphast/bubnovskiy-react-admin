@@ -1,6 +1,17 @@
 import React from 'react';
-import {List, Datagrid, TextField, EmailField, TextInput, downloadCSV, EditButton, ShowButton} from 'react-admin';
+import {
+    List,
+    Datagrid,
+    TextField,
+    EmailField,
+    TextInput,
+    downloadCSV,
+    EditButton,
+    ShowButton,
+    ImageField
+} from 'react-admin';
 import jsonExport from 'jsonexport/dist';
+import UserListStyles from './UserList.module.scss'
 
 const postFilters = [
     <TextInput label="Поиск" source="q" alwaysOn />,
@@ -32,15 +43,16 @@ export const UserList = props => (
         // bulkActionButtons={false}
         {...props}
     >
-        <Datagrid rowClick="show">
-            <TextField source="firstName" label='Имя' />
-            <TextField source="lastName" label='Фамилия' />
-            <TextField source="gender" label='Пол' />
-            <EmailField source="email"  label='Email' />
-            <TextField source="phoneNumber" label='Телефон' />
+        <Datagrid rowClick='show'>
+            <ImageField className={UserListStyles.userPhoto} source='photoUrl' label='Фото' />
+            <TextField source='firstName' label='Имя' />
+            <TextField source='lastName' label='Фамилия' />
+            <TextField source='gender' label='Пол' />
+            <EmailField source='email'  label='Email' />
+            <TextField source='phoneNumber' label='Телефон' />
             {/* <TextField source="isActivated" /> */}
             <EditButton label='Изменить'/>
-            <ShowButton label="Подробнее"/>
+            <ShowButton label='Подробнее'/>
         </Datagrid>
     </List>
 );

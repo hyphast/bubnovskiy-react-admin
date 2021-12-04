@@ -1,19 +1,38 @@
 import React from 'react';
 import {
-  NumberField,
-  TextField,
-  Show,
-  SimpleShowLayout,
-  DateField,
   ArrayField,
   Datagrid,
-  ReferenceField, FunctionField, TopToolbar, ListButton, ShowButton, SingleFieldList, ReferenceArrayField,
+  FunctionField,
+  NumberField,
+  ReferenceField,
+  Show,
+  SimpleShowLayout,
+  SingleFieldList,
 } from 'react-admin';
 import {format} from 'date-fns';
 import {ru} from 'date-fns/locale';
 import {CustomDateField} from '../../fields/CustomDateField/CustomDateField';
 import {AppShowActions} from './AppShowActions';
-import Grid from '@material-ui/core/Grid';
+import {ImageField} from 'ra-ui-materialui';
+import AppointmentShowStyles from './AppointmentShow.module.scss'
+
+const PatientInfo = ({source, label}) => {
+  return (
+  <ArrayField source={source} label={label}>
+    <SingleFieldList style={{display: 'flex', flexDirection: 'column'}}>
+      <ReferenceField reference="users" source="id" link='show'>
+        <div className={AppointmentShowStyles.userInfo}>
+          <ImageField source="photoUrl" label="Фото" />
+          <FunctionField className={AppointmentShowStyles.userName}
+                         label="Имя"
+                         render={record => `${record.firstName} ${record.lastName} ${record.patronymic}`}
+          />
+        </div>
+      </ReferenceField>
+    </SingleFieldList>
+  </ArrayField>
+  )
+}
 
 export const AppointmentShow = props => (
   <Show
@@ -23,26 +42,12 @@ export const AppointmentShow = props => (
   >
     <SimpleShowLayout>
       <CustomDateField source="date" label="Дата"/>
-      {/*<DateField source="date" label="Дата"/>*/}
       <ArrayField source="appointments" label="Расписание на этот день">
         <Datagrid>
           <FunctionField label="Время" render={record => format(new Date(record['time']), 'HH:mm', {locale: ru})}/>
-          <NumberField source="numberPatients" label="Количество пациентов"/>
-          <ArrayField source="patients" label="Пациенты">
-            <SingleFieldList style={{display: 'flex', flexDirection: 'column'}}>
-              <ReferenceField reference="users" source="id" link='show'>
-                {/*<TextField source="firstName"/>*/}
-                  <FunctionField label="Имя" render={record => `${record.firstName} ${record.lastName}`} />
-              </ReferenceField>
-            </SingleFieldList>
-          </ArrayField>
-          {/*<ArrayField source="patients" label="Номер телефона">*/}
-          {/*  <SingleFieldList>*/}
-          {/*    <ReferenceField label="Номер телефона" source='patientId' reference="users">*/}
-          {/*      <TextField source="phoneNumber" />*/}
-          {/*    </ReferenceField>*/}
-          {/*  </SingleFieldList>*/}
-          {/*</ArrayField>*/}
+          <FunctionField label="Количество пациентов" render={record => record.patients.length} />
+          <PatientInfo source={'treatment'} label={'Лечебные занятия'}/>
+          <PatientInfo source={'physicalTraining'} label={'Физкультурно-оздоровительные занятия'}/>
         </Datagrid>
       </ArrayField>
       <NumberField source="numberAllPatients" label="Общее количество пациентов"/>

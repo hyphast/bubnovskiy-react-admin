@@ -2,21 +2,20 @@ import React from 'react';
 import {
   EditButton,
   EmailField,
+  FunctionField,
+  ImageField,
   ListButton,
   Show,
-  ShowButton,
   SimpleShowLayout,
   TextField,
   TopToolbar,
 } from 'react-admin';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import {BackButton} from '../common/BackButtonAction/BackButtonAction';
 
 const UserShowActions = ({basePath, data, resource}) => (
   <TopToolbar>
     <BackButton
       style={{ color: '#3f51b5', position: 'relative', top: '-4px' }}
-      // icon={<ChevronLeft/>}
     >
       НАЗАД
     </BackButton>
@@ -31,13 +30,14 @@ export const UserShow = props => (
     {...props}
   >
     <SimpleShowLayout>
-      <TextField source="id" label='id'/>
-      <TextField source="isActivated" label='Аккаунт акктивирован'/>
+      <ImageField source="photoUrl" label="Фото" />
       <TextField source="firstName" label='Имя'/>
       <TextField source="lastName" label='Фамилия'/>
+      <TextField source="patronymic" label='Отчество'/>
+      <FunctionField label='Пол' render={record => record.male ? 'Мужчина' : 'Женщина'} />
+      <FunctionField label='Номер телефона' render={record => '+7' + record.phoneNumber } />
       <EmailField source="email" label='Email'/>
-      <TextField source="gender" label='Пол'/>
-      <TextField source="phoneNumber" label='Номер телефона'/>
+      <FunctionField label='Аккаунт акктивирован' render={record => record.isActivated ? 'Да' : 'Нет'} />
     </SimpleShowLayout>
   </Show>
 );
