@@ -8,10 +8,11 @@ import {
     downloadCSV,
     EditButton,
     ShowButton,
-    ImageField
+    ImageField, FunctionField
 } from 'react-admin';
 import jsonExport from 'jsonexport/dist';
 import UserListStyles from './UserList.module.scss'
+import AppointmentShowStyles from '../Appointments/AppointmentShow/AppointmentShow.module.scss';
 
 const postFilters = [
     <TextInput label="Поиск" source="q" alwaysOn />,
@@ -47,10 +48,9 @@ export const UserList = props => (
             <ImageField className={UserListStyles.userPhoto} source='photoUrl' label='Фото' />
             <TextField source='firstName' label='Имя' />
             <TextField source='lastName' label='Фамилия' />
-            <TextField source='gender' label='Пол' />
+            <FunctionField label="Пол" render={record => record.gender === 'male' ? 'Мужчина' : 'Женщина'}/>
             <EmailField source='email'  label='Email' />
-            <TextField source='phoneNumber' label='Телефон' />
-            {/* <TextField source="isActivated" /> */}
+            <FunctionField label="Телефон" render={record => '+7' + record.phoneNumber}/>
             <EditButton label='Изменить'/>
             <ShowButton label='Подробнее'/>
         </Datagrid>

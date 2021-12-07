@@ -14,6 +14,7 @@ import {ru} from 'date-fns/locale';
 import {CustomDateField} from '../../fields/CustomDateField/CustomDateField';
 import {AppShowActions} from './AppShowActions';
 import {ImageField} from 'ra-ui-materialui';
+import userImage from '../../../assets/images/user.png';
 import AppointmentShowStyles from './AppointmentShow.module.scss'
 
 const PatientInfo = ({source, label}) => {
@@ -22,7 +23,14 @@ const PatientInfo = ({source, label}) => {
     <SingleFieldList style={{display: 'flex', flexDirection: 'column'}}>
       <ReferenceField reference="users" source="id" link='show'>
         <div className={AppointmentShowStyles.userInfo}>
-          <ImageField source="photoUrl" label="Фото" />
+          {/*<ImageField source="photoUrl" label="Фото" />*/}
+          <FunctionField label="Фото" render={
+            record => record.photoUrl.length === 0
+              ?
+              <img style={{margin: '8px'}} src={userImage} alt="img"/>
+              :
+              <ImageField source="photoUrl" label="Фото" />
+          } />
           <FunctionField className={AppointmentShowStyles.userName}
                          label="Имя"
                          render={record => `${record.firstName} ${record.lastName} ${record.patronymic}`}
