@@ -11,6 +11,7 @@ import {
   TopToolbar,
 } from 'react-admin';
 import {BackButton} from '../common/BackButtonAction/BackButtonAction';
+import CustomImageField from '../fields/CustomImageField';
 
 const UserShowActions = ({basePath, data, resource}) => (
   <TopToolbar>
@@ -30,7 +31,10 @@ export const UserShow = props => (
     {...props}
   >
     <SimpleShowLayout>
-      <ImageField source="photoUrl" label="Фото" />
+      {/*<ImageField source="photoUrl" label="Фото" />*/}
+      <CustomImageField source="photoUrl" label="Фото"/> //TODO Доделать
+      <CustomImageField source="photoUrl" label="Фото"/> //TODO Доделать
+      <CustomImageField source="photoUrl" label="Фото"/> //TODO Доделать
       <TextField source="firstName" label='Имя'/>
       <TextField source="lastName" label='Фамилия'/>
       <TextField source="patronymic" label='Отчество'/>

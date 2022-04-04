@@ -10,15 +10,16 @@ import russianMessages from 'ra-language-russian';
 import './App.css';
 import {AppointmentShow} from './components/Appointments/AppointmentShow/AppointemntShow';
 import {UserShow} from './components/Users/UserShow';
+import dataProvider from './dataProvider'
 
-let apiUrl;
-if (process.env.NODE_ENV === 'production') {
-  apiUrl = 'http://bubnovskiy30.hopto.org/api/admin';
-} else {
-  apiUrl = 'http://localhost:5000/api/admin';
-}
+// let apiUrl;
+// if (process.env.NODE_ENV === 'production') {
+//   apiUrl = 'http://bubnovskiy30.hopto.org/api/admin';
+// } else {
+//   apiUrl = 'http://localhost:5000';
+// }
 
-const dataProvider = simpleRestProvider(apiUrl);
+//const dataProvider = simpleRestProvider(apiUrl);
 const i18nProvider = polyglotI18nProvider(() => russianMessages, 'ru');
 
 function App() {

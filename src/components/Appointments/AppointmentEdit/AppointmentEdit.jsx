@@ -64,7 +64,7 @@ export const AppointmentEdit = (props) => {
               <SimpleFormIterator>
                 {/*<TextInput source="appointmentType" label='Тип' />*/}
                 <ReferenceInput
-                  source="id"
+                  source="userId"
                   reference="users"
                   label='[Имя] [Фамилия] [Отчество] [Номер телефона без +7]'
                   fullWidth
