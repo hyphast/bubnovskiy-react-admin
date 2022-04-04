@@ -1,5 +1,6 @@
 .userInfo {
   display: flex;
+  padding-top: 1px;
   img {
     width: 30px;
     height: 30px;
@@ -8,6 +9,7 @@
   }
   .userName {
     position: relative;
-    top: 13px;
+    top: 6px;
+    padding-left: 3px
   }
 }

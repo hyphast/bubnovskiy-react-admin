@@ -1,18 +1,8 @@
 import React from 'react';
-import {
-    List,
-    Datagrid,
-    TextField,
-    EmailField,
-    TextInput,
-    downloadCSV,
-    EditButton,
-    ShowButton,
-    ImageField, FunctionField
-} from 'react-admin';
+import {Datagrid, downloadCSV, EditButton, EmailField, FunctionField, List, ShowButton, TextInput} from 'react-admin';
 import jsonExport from 'jsonexport/dist';
 import UserListStyles from './UserList.module.scss'
-import AppointmentShowStyles from '../Appointments/AppointmentShow/AppointmentShow.module.scss';
+import CustomImageField from '../fields/CustomImageField';
 
 const postFilters = [
     <TextInput label="Поиск" source="q" alwaysOn />,
@@ -45,9 +35,8 @@ export const UserList = props => (
         {...props}
     >
         <Datagrid rowClick='show'>
-            <ImageField className={UserListStyles.userPhoto} source='photoUrl' label='Фото' />
-            <TextField source='firstName' label='Имя' />
-            <TextField source='lastName' label='Фамилия' />
+            <CustomImageField className={UserListStyles.photo} source="photoUrl" label="Фото"/>
+            <FunctionField label="ФИО" render={record => `${record.firstName} ${record.lastName} ${record.patronymic}`}/>
             <FunctionField label="Пол" render={record => record.gender === 'male' ? 'Мужчина' : 'Женщина'}/>
             <EmailField source='email'  label='Email' />
             <FunctionField label="Телефон" render={record => '+7' + record.phoneNumber}/>

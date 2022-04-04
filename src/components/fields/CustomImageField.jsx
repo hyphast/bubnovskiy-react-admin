@@ -1,16 +1,17 @@
 import React from 'react'
-import {ImageField, useRecordContext} from 'react-admin'
+import {useRecordContext} from 'react-admin'
 
-
-const CustomImageField = ({ source }) => {
+const CustomImageField = ({ source, ...rest }) => {
   const record = useRecordContext()
 
-  const API_URL = 'http:localhost:5000'
+  const API_URL = process.env.REACT_APP_API_URL
   const url = `${API_URL}/${record.photoUrl}`
-  console.log('url', url)
 
-  return <img src={url} label='Фото'/>
-
+  return record.photoUrl ? (
+    <div className={rest?.className}>
+      <img src={url} />
+    </div>
+  ) : null
 }
 
 export default CustomImageField

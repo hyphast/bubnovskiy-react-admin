@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^12.8.3",
     "cross-env": "^7.0.3",
     "date-fns": "^2.23.0",
+    "dotenv": "^16.0.0",
     "node-sass": "^6.0.1",
     "ra-core": "^3.18.0",
     "ra-data-simple-rest": "^3.18.0",

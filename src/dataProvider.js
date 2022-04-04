@@ -1,42 +1,27 @@
 import { fetchUtils } from 'react-admin';
 import { stringify } from 'query-string';
 
-const apiUrl = 'http://localhost:5000';
+const apiUrl = process.env.REACT_APP_API_URL
 const httpClient = fetchUtils.fetchJson;
 
-function withIdField(items) {
-  if (Array.isArray(items)) {
-    const itemsList = items.map(i => ({
-      id: i._id,
-      ...i,
-    }))
+const withIdField = (inObject) => {
+  let outObject
 
-    return itemsList
+  if (typeof inObject !== 'object' || inObject === null) {
+    return inObject
   }
-  else {
-    const itemsList = {id: items._id, ...items}
 
-    return itemsList;
+  outObject = Array.isArray(inObject) ? [] : {}
+
+  for (let key in inObject) {
+    const value = inObject[key]
+    outObject[key] = withIdField(value)
+    if (key === '_id') {
+      outObject['id'] = outObject[key]
+    }
   }
-  // for(let item in items) {
-  //   if (Array.isArray(i)) {
-  //
-  //   }
-  //   return Object.keys(item).map(i => {
-  //      return i === '_id' ? item[i] : i;
-  //   })
-  // }
-  //  const itemsList = items.map(item => {
-  //    Object.keys(item).map(i => {
-  //      if (Array.isArray(i)) {
-  //        Object.keys(i).map(j => {
-  //          if (j === '_id') i['id'] = i[j];
-  //        })
-  //      }
-  //      if (i === '_id') item['id'] = item[i];
-  //    })
-  //  })
-  //  return itemsList;
+
+  return outObject
 }
 
 export default {
@@ -51,10 +36,9 @@ export default {
     const url = `${apiUrl}/${resource}?${stringify(query)}`;
 
     return httpClient(url).then(({ headers, json }) => {
-      const usersList = withIdField(json)
-      console.log(usersList)
+      const data = withIdField(json)
       return {
-        data: usersList,
+        data: data,
         total: parseInt(headers.get('content-range').split('/').pop(), 10),
       }
     });
@@ -62,29 +46,14 @@ export default {
 
   getOne: (resource, params) =>
     httpClient(`${apiUrl}/${resource}/${params.id}`).then(({ json }) => {
-      let data
+      const data = withIdField(json)
       if (resource === 'appointments') {
-        const withId = {...json, id: json._id,}
-
-        data = withId
-
-        data.appointments = withId.appointments.map((app) => ({
-          id: app._id,
-          ...app,
-        }))
-
         data.appointments.forEach((app) => {
           app.treatment = app.patients.filter(
-            (item) => item.appointmentType === 'Лечебные занятия',
-          )
+            (item) => item.appointmentType === 'Лечебные занятия')
           app.physicalTraining = app.patients.filter(
-            (item) =>
-              item.appointmentType === 'Физкультурно-оздоровительные занятия',
-          )
+            (item) => item.appointmentType === 'Физкультурно-оздоровительные занятия')
         })
-      } else if (resource === 'users') {
-        data = withIdField(json)
-        console.log('data', data)
       }
       return {
         data: data,
@@ -96,7 +65,12 @@ export default {
       filter: JSON.stringify({ ids: params.ids }),
     };
     const url = `${apiUrl}/${resource}?${stringify(query)}`;
-    return httpClient(url).then(({ json }) => ({ data: json }));
+    return httpClient(url).then(({ json }) => {
+      const data = withIdField(json)
+      return {
+        data: data.records.upcomingRecords
+      }
+    })
   },
 
   getManyReference: (resource, params) => {
@@ -123,8 +97,6 @@ export default {
       method: 'PUT',
       body: JSON.stringify(params.data),
     }).then(({ json }) => {
-      console.log('json', json)
-      console.log('params', params)
       const data = json
       data.date = params.data.date
       data.id = params.id

@@ -13,9 +13,9 @@ import {format} from 'date-fns';
 import {ru} from 'date-fns/locale';
 import {CustomDateField} from '../../fields/CustomDateField/CustomDateField';
 import {AppShowActions} from './AppShowActions';
-import {ImageField} from 'ra-ui-materialui';
 import userImage from '../../../assets/images/user.png';
 import AppointmentShowStyles from './AppointmentShow.module.scss'
+import CustomImageField from '../../fields/CustomImageField';
 
 const PatientInfo = ({source, label}) => {
   return (
@@ -25,11 +25,11 @@ const PatientInfo = ({source, label}) => {
         <div className={AppointmentShowStyles.userInfo}>
           {/*<ImageField source="photoUrl" label="Фото" />*/}
           <FunctionField label="Фото" render={
-            record => record.photoUrl.length === 0
+            record => !record.photoUrl.length
               ?
-              <img style={{margin: '8px'}} src={userImage} alt="img"/>
+              <img src={userImage} alt="img"/>
               :
-              <ImageField source="photoUrl" label="Фото" />
+              <CustomImageField source="photoUrl" label="Фото"/>
           } />
           <FunctionField className={AppointmentShowStyles.userName}
                          label="Имя"

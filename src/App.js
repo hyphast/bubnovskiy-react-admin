@@ -1,5 +1,4 @@
 import { Admin, Resource, ListGuesser, EditGuesser, ShowGuesser } from 'react-admin';
-import simpleRestProvider from 'ra-data-simple-rest'
 import { UserList } from './components/Users/UserList';
 import { UserEdit } from './components/Users/UserEdit';
 import {Dashboard} from './components/Dashboard/Dashboard';
@@ -9,17 +8,10 @@ import polyglotI18nProvider from 'ra-i18n-polyglot';
 import russianMessages from 'ra-language-russian';
 import './App.css';
 import {AppointmentShow} from './components/Appointments/AppointmentShow/AppointemntShow';
-import {UserShow} from './components/Users/UserShow';
+import {UserShow} from './components/Users/UserShow/UserShow';
 import dataProvider from './dataProvider'
+import {RecordShow} from './components/Records/RecordShow/RecordShow';
 
-// let apiUrl;
-// if (process.env.NODE_ENV === 'production') {
-//   apiUrl = 'http://bubnovskiy30.hopto.org/api/admin';
-// } else {
-//   apiUrl = 'http://localhost:5000';
-// }
-
-//const dataProvider = simpleRestProvider(apiUrl);
 const i18nProvider = polyglotI18nProvider(() => russianMessages, 'ru');
 
 function App() {
@@ -32,6 +24,7 @@ function App() {
      >
         <Resource name='users' options={{ label: 'Пользователи' }} list={UserList} edit={UserEdit} show={UserShow}/>
         <Resource name='appointments' options={{ label: 'Записи' }} list={AppointmentList} edit={AppointmentEdit} show={AppointmentShow}/>
+        <Resource name='records' show={RecordShow}/>
     </Admin>
   );
 }
