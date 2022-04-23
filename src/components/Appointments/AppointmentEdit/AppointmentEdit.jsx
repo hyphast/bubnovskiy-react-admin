@@ -64,7 +64,7 @@ export const AppointmentEdit = (props) => {
               <SimpleFormIterator>
                 {/*<TextInput source="appointmentType" label='Тип' />*/}
                 <ReferenceInput
-                  source="userId"
+                  source="record.userId"
                   reference="users"
                   label='[Имя] [Фамилия] [Отчество] [Номер телефона без +7]'
                   fullWidth
@@ -79,7 +79,7 @@ export const AppointmentEdit = (props) => {
                     resettable
                   />
                 </ReferenceInput>
-                <SelectInput source='appointmentType'
+                <SelectInput source='record.appointmentType'
                              //optionText='name'
                              optionValue='id'
                              label='Тип услуги'

@@ -47,12 +47,13 @@ export default {
   getOne: (resource, params) =>
     httpClient(`${apiUrl}/${resource}/${params.id}`).then(({ json }) => {
       const data = withIdField(json)
+      console.log(data)
       if (resource === 'appointments') {
         data.appointments.forEach((app) => {
           app.treatment = app.patients.filter(
-            (item) => item.appointmentType === 'Лечебные занятия')
+            (item) => item.record.appointmentType === 'Лечебные занятия')
           app.physicalTraining = app.patients.filter(
-            (item) => item.appointmentType === 'Физкультурно-оздоровительные занятия')
+            (item) => item.record.appointmentType === 'Физкультурно-оздоровительные занятия')
         })
       }
       return {
@@ -68,7 +69,7 @@ export default {
     return httpClient(url).then(({ json }) => {
       const data = withIdField(json)
       return {
-        data: data.records.upcomingRecords
+        data: data
       }
     })
   },

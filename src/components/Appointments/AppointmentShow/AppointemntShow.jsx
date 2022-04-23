@@ -21,7 +21,7 @@ const PatientInfo = ({source, label}) => {
   return (
   <ArrayField source={source} label={label}>
     <SingleFieldList style={{display: 'flex', flexDirection: 'column'}}>
-      <ReferenceField reference="users" source="userId" link='show'>
+      <ReferenceField reference="users" source="record.userId" link='show'>
         <div className={AppointmentShowStyles.userInfo}>
           {/*<ImageField source="photoUrl" label="Фото" />*/}
           <FunctionField label="Фото" render={
@@ -34,6 +34,7 @@ const PatientInfo = ({source, label}) => {
           <FunctionField className={AppointmentShowStyles.userName}
                          label="Имя"
                          render={record => `${record.firstName} ${record.lastName} ${record.patronymic}`}
+                         // render={record => console.log(record)}
           />
         </div>
       </ReferenceField>
