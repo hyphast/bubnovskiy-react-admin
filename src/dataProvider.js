@@ -44,10 +44,9 @@ export default {
     });
   },
 
-  getOne: (resource, params) =>
-    httpClient(`${apiUrl}/${resource}/${params.id}`).then(({ json }) => {
-      const data = withIdField(json)
-      console.log(data)
+  getOne: (resource, params) => {
+    return httpClient(`${apiUrl}/${resource}/${params.id}`).then(({ json }) => {
+      let data = withIdField(json)
       if (resource === 'appointments') {
         data.appointments.forEach((app) => {
           app.treatment = app.patients.filter(
@@ -59,7 +58,8 @@ export default {
       return {
         data: data,
       }
-    }),
+    })
+  },
 
   getMany: (resource, params) => {
     const query = {
@@ -93,18 +93,19 @@ export default {
     }));
   },
 
-  update: (resource, params) =>
-    httpClient(`${apiUrl}/${resource}/${params.id}`, {
+  update: (resource, params) => {
+   return httpClient(`${apiUrl}/${resource}/${params.id}`, {
       method: 'PUT',
       body: JSON.stringify(params.data),
-    }).then(({ json }) => {
+    }).then(({json}) => {
       const data = json
       data.date = params.data.date
       data.id = params.id
       return {
         data: data
       }
-    }),
+    })
+  },
 
   updateMany: (resource, params) => {
     const query = {

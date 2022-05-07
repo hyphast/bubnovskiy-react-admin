@@ -33,7 +33,7 @@ const PatientInfo = ({source, label}) => {
           } />
           <FunctionField className={AppointmentShowStyles.userName}
                          label="Имя"
-                         render={record => `${record.firstName} ${record.lastName} ${record.patronymic}`}
+                         render={record => `${record.lastName} ${record.firstName} ${record.patronymic}`}
                          // render={record => console.log(record)}
           />
         </div>

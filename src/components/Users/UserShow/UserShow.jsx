@@ -32,8 +32,8 @@ export const UserShow = props => (
   >
     <SimpleShowLayout>
       <CustomImageField className={UserShowStyles.userPhoto} source="photoUrl" label="Фото"/>
-      <TextField source="firstName" label="Имя"/>
       <TextField source="lastName" label="Фамилия"/>
+      <TextField source="firstName" label="Имя"/>
       <TextField source="patronymic" label="Отчество"/>
       <FunctionField label="Пол" render={record => record.male ? 'Мужчина' : 'Женщина'}/>
       <FunctionField label="Номер телефона" render={record => '+7' + record.phoneNumber}/>

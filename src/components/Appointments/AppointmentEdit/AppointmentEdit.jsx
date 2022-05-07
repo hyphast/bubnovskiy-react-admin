@@ -2,11 +2,12 @@ import React from 'react';
 import {
   ArrayInput,
   AutocompleteInput,
+  BooleanInput,
   Edit,
   ReferenceInput,
+  SelectInput,
   SimpleForm,
   SimpleFormIterator,
-  SelectInput,
 } from 'react-admin';
 import {Typography} from '@material-ui/core';
 import {CustomDateField} from '../../fields/CustomDateField/CustomDateField';
@@ -17,6 +18,8 @@ import DateFnsUtils from '@date-io/date-fns';
 import {MuiPickersUtilsProvider} from '@material-ui/pickers';
 import {AppEditActions} from './AppEditActions';
 import {MaxPatientsNumberInput} from './MaxPatientsNumberInput';
+import AppointmentEditStyles from './AppointmentEdit.scss';
+
 
 const Aside = ({record}) => (
   <div style={{width: 200, margin: '1em'}}>
@@ -30,8 +33,8 @@ const Aside = ({record}) => (
 );
 
 const OptionRenderer = choice =>
-  `${choice.record.firstName} ${choice.record.lastName} ${choice.record.patronymic} +7${choice.record.phoneNumber}`;
-const inputText = choice => `${choice.firstName} ${choice.lastName} ${choice.patronymic}`;
+  `${choice.record.lastName} ${choice.record.firstName} ${choice.record.patronymic} +7${choice.record.phoneNumber}`;
+const inputText = choice => `${choice.lastName} ${choice.firstName} ${choice.patronymic}`;
 
 export const AppointmentEdit = (props) => {
 
@@ -39,12 +42,20 @@ export const AppointmentEdit = (props) => {
     aside={<Aside/>}
     actions={<AppEditActions/>}
     title="Изменение записи"
+    transform={data => {
+      const apps = data.appointments.map(app => {
+        const {treatment, physicalTraining, ...restData} = app
+        return restData
+      })
+      data.appointments = apps
+      return data
+    }}
     {...props}
   >
-    <SimpleForm>
+    <SimpleForm className='appointmentEdit'>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <CustomDateField source="date" label="Дата"/>
-        <ArrayInput source="appointments" label='Расписание на этот день'>
+        <ArrayInput source="appointments" label="Расписание на этот день">
           <SimpleFormIterator>
             {/*<FunctionField label="Время" render={record => format(new Date(record['time']), 'HH:mm', {locale: ru})} />*/}
 
@@ -60,34 +71,52 @@ export const AppointmentEdit = (props) => {
 
             <MaxPatientsNumberInput source="maxNumberPatients"/>
             {/*<NumberInput min={0} max={12} initialValue={12} source="maxNumberPatients" label='Максимальное кол-во пациентов'/>*/}
-            <ArrayInput source="patients" label='Пациенты'>
+            <ArrayInput source="patients" label="Пациенты">
               <SimpleFormIterator>
                 {/*<TextInput source="appointmentType" label='Тип' />*/}
                 <ReferenceInput
                   source="record.userId"
                   reference="users"
-                  label='[Имя] [Фамилия] [Отчество] [Номер телефона без +7]'
+                  label="[Фамилия] [Имя] [Отчество] [Номер телефона без +7]"
                   fullWidth
                 >
                   <AutocompleteInput
                     matchSuggestion={(filterValue, suggestion) => true}
-                    optionText={<OptionRenderer />}
+                    optionText={<OptionRenderer/>}
                     inputText={inputText}
-                    options={{ fullWidth: true }}
-                    emptyText='Не выбран'
+                    options={{fullWidth: true}}
+                    emptyText="Не выбран"
                     suggestionLimit={16}
                     resettable
                   />
                 </ReferenceInput>
-                <SelectInput source='record.appointmentType'
-                             //optionText='name'
-                             optionValue='id'
-                             label='Тип услуги'
-                             initialValue='Лечебные занятия'
-                             choices={[
-                  { id: 'Лечебные занятия', name: 'Лечебные занятия' },
-                  { id: 'Физкультурно-оздоровительные занятия', name: 'Физкультурно-оздоровительные занятия' },
-                ]} />
+                {/*<div style={{display: 'flex'}}>*/}
+                  <SelectInput source="record.appointmentType"
+                               optionValue="id"
+                               label="Тип услуги"
+                               initialValue="Лечебные занятия"
+                               choices={[
+                                 {id: 'Лечебные занятия', name: 'Лечебные занятия'},
+                                 {
+                                   id: 'Физкультурно-оздоровительные занятия',
+                                   name: 'Физкультурно-оздоровительные занятия'
+                                 },
+                               ]}
+                  />
+                  {/*<SelectInput source="record.instructor"*/}
+                  {/*             optionValue="id"*/}
+                  {/*             label="Инструктор"*/}
+                  {/*             initialValue="Петров Петр"*/}
+                  {/*             choices={[*/}
+                  {/*               {id: 'Петров Петр', name: 'Петров Петр'},*/}
+                  {/*               {*/}
+                  {/*                 id: 'Петров Петр',*/}
+                  {/*                 name: 'Петров Петр'*/}
+                  {/*               },*/}
+                  {/*             ]}*/}
+                  {/*/>*/}
+                  {/*<BooleanInput label="Успешно" source="success"/>*/}
+                {/*</div>*/}
               </SimpleFormIterator>
             </ArrayInput>
           </SimpleFormIterator>

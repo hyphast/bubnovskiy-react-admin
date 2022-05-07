@@ -36,7 +36,7 @@ export const UserList = props => (
     >
         <Datagrid rowClick='show'>
             <CustomImageField className={UserListStyles.photo} source="photoUrl" label="Фото"/>
-            <FunctionField label="ФИО" render={record => `${record.firstName} ${record.lastName} ${record.patronymic}`}/>
+            <FunctionField label="ФИО" render={record => `${record.lastName} ${record.firstName} ${record.patronymic}`}/>
             <FunctionField label="Пол" render={record => record.gender === 'male' ? 'Мужчина' : 'Женщина'}/>
             <EmailField source='email'  label='Email' />
             <FunctionField label="Телефон" render={record => '+7' + record.phoneNumber}/>

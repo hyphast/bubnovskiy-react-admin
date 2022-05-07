@@ -1,6 +1,6 @@
 import { Admin, Resource, ListGuesser, EditGuesser, ShowGuesser } from 'react-admin';
 import { UserList } from './components/Users/UserList';
-import { UserEdit } from './components/Users/UserEdit';
+import { UserEdit } from './components/Users/UserEdit/UserEdit';
 import {Dashboard} from './components/Dashboard/Dashboard';
 import {AppointmentList} from './components/Appointments/AppointmentList';
 import {AppointmentEdit} from './components/Appointments/AppointmentEdit/AppointmentEdit';
