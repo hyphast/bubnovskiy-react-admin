@@ -9,13 +9,14 @@ import {
   SimpleForm,
   SimpleFormIterator,
 } from 'react-admin';
-import {Typography} from '@material-ui/core';
+import { Typography } from '@mui/material'
 import {CustomDateField} from '../../fields/CustomDateField/CustomDateField';
 import {format} from 'date-fns';
 import {ru} from 'date-fns/locale'
-import {TimeInput} from 'react-admin-date-inputs2';
-import DateFnsUtils from '@date-io/date-fns';
-import {MuiPickersUtilsProvider} from '@material-ui/pickers';
+// import {TimeInput} from 'react-admin-date-inputs2';
+import { DateTimeInput } from 'react-admin';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import {AppEditActions} from './AppEditActions';
 import {MaxPatientsNumberInput} from './MaxPatientsNumberInput';
 import AppointmentEditStyles from './AppointmentEdit.scss';
@@ -53,21 +54,22 @@ export const AppointmentEdit = (props) => {
     {...props}
   >
     <SimpleForm className='appointmentEdit'>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
         <CustomDateField source="date" label="Дата"/>
         <ArrayInput source="appointments" label="Расписание на этот день">
           <SimpleFormIterator>
             {/*<FunctionField label="Время" render={record => format(new Date(record['time']), 'HH:mm', {locale: ru})} />*/}
 
-            <TimeInput source="time" label="Время"
-                       options=
-                         {{
-                           ampm: false,
-                           okLabel: 'Ок',
-                           cancelLabel: 'Отмена',
-                         }}
-                       providerOptions={{utils: DateFnsUtils}}
-            />
+            {/*<TimeInput source="time" label="Время"*/}
+            {/*           options=*/}
+            {/*             {{*/}
+            {/*               ampm: false,*/}
+            {/*               okLabel: 'Ок',*/}
+            {/*               cancelLabel: 'Отмена',*/}
+            {/*             }}*/}
+            {/*           providerOptions={{utils: AdapterDateFns}}*/}
+            {/*/>*/}
+            <DateTimeInput source="time" label="Время" />
 
             <MaxPatientsNumberInput source="maxNumberPatients"/>
             {/*<NumberInput min={0} max={12} initialValue={12} source="maxNumberPatients" label='Максимальное кол-во пациентов'/>*/}
@@ -121,7 +123,7 @@ export const AppointmentEdit = (props) => {
             </ArrayInput>
           </SimpleFormIterator>
         </ArrayInput>
-      </MuiPickersUtilsProvider>
+      </LocalizationProvider>
     </SimpleForm>
   </Edit>
 };

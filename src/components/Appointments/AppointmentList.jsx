@@ -4,8 +4,8 @@ import {Datagrid, downloadCSV, EditButton, ExportButton,
 import {CustomDateField} from '../fields/CustomDateField/CustomDateField';
 import {AppointmentPatients} from './AppoitnemntPatients/AppointmentPatients';
 import jsonExport from 'jsonexport/dist';
-import { Box } from '@material-ui/core';
-import { VisibilityOff } from '@material-ui/icons';
+import { Box } from '@mui/material';
+import { VisibilityOff } from '@mui/icons-material';
 // import Expand from '../../lists/Test';
 
 const exporter = appointments => {

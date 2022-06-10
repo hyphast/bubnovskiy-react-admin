@@ -1,10 +1,10 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import { useHistory } from 'react-router-dom';
+import React from 'react'
+import Button from '@mui/material/Button'
+import { useNavigate } from 'react-router-dom'
 
 export const BackButton = ({children, ...props }) => {
-  const {goBack} = useHistory();
-  return <Button {...props} onClick={goBack}>
+  const navigate = useNavigate();
+  return <Button {...props} onClick={() => navigate(-1)}>
     {children}
   </Button>
 }
