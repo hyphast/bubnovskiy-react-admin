@@ -5,8 +5,7 @@ import UserListStyles from './UserList.module.scss'
 import CustomImageField from '../fields/CustomImageField';
 
 const postFilters = [
-    <TextInput label="Поиск" source="q" alwaysOn />,
-    <TextInput label="Title" source="title" defaultValue="Hello, World!" />,
+    <TextInput name="text" label="Поиск по ФИО" source="q" alwaysOn />,
 ];
 
 const exporter = users => {
@@ -34,13 +33,13 @@ export const UserList = props => (
         // bulkActionButtons={false}
         {...props}
     >
-        <Datagrid rowClick='show'>
+        <Datagrid rowClick='show' bulkActionButtons={false} >
             <CustomImageField className={UserListStyles.photo} source="photoUrl" label="Фото"/>
             <FunctionField label="ФИО" render={record => `${record.lastName} ${record.firstName} ${record.patronymic}`}/>
             <FunctionField label="Пол" render={record => record.gender === 'male' ? 'Мужчина' : 'Женщина'}/>
             <EmailField source='email'  label='Email' />
             <FunctionField label="Телефон" render={record => '+7' + record.phoneNumber}/>
-            <EditButton label='Изменить'/>
+            {/*<EditButton label='Изменить'/>*/}
             <ShowButton label='Подробнее'/>
         </Datagrid>
     </List>

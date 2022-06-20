@@ -1,6 +1,6 @@
 import React from 'react';
 import {Edit, SaveButton, SimpleForm, TextInput} from 'react-admin';
-import {Toolbar} from '@material-ui/core';
+import {Toolbar} from '@mui/material';
 
 const UserEditToolbar = props => (
   <Toolbar {...props} >

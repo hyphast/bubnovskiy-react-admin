@@ -1,10 +1,26 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import { useHistory } from 'react-router-dom';
+import React from 'react'
+import Button, { ButtonProps } from '@mui/material/Button'
+import { useNavigate } from 'react-router-dom'
+import { styled } from '@mui/material/styles'
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import styles from './BackButtonActionStyles.module.scss'
+
+const CustomBackButton = styled(Button)({
+  padding: '4px 5px',
+  lineHeight: '1.5',
+  fontSize: '0.87rem',
+  letterSpacing: '0.02857em',
+  borderRadius: '4px'
+})
 
 export const BackButton = ({children, ...props }) => {
-  const {goBack} = useHistory();
-  return <Button {...props} onClick={goBack}>
+  const navigate = useNavigate();
+  return (
+    <CustomBackButton variant='text'
+                      startIcon={<ArrowBackIosNewIcon />}
+                      onClick={() => navigate(-1)}
+  >
     {children}
-  </Button>
+  </CustomBackButton>
+  )
 }

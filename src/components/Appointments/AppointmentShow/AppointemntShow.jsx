@@ -52,7 +52,7 @@ export const AppointmentShow = props => (
     <SimpleShowLayout>
       <CustomDateField source="date" label="Дата"/>
       <ArrayField source="appointments" label="Расписание на этот день">
-        <Datagrid>
+        <Datagrid bulkActionButtons={false} >
           <FunctionField label="Время" render={record => format(new Date(record['time']), 'HH:mm', {locale: ru})}/>
           <FunctionField label="Количество пациентов" render={record => record.patients.length} />
           <PatientInfo source={'treatment'} label={'Лечебные занятия'}/>
