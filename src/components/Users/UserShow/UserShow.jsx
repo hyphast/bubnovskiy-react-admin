@@ -13,15 +13,11 @@ import {BackButton} from '../../common/BackButtonAction/BackButtonAction';
 import CustomImageField from '../../fields/CustomImageField';
 import UserShowStyles from './UserShow.module.scss'
 
-const UserShowActions = ({basePath, data, resource}) => (
+const UserShowActions = ({basepath, data, resource}) => (
   <TopToolbar>
-    <BackButton
-      style={{color: '#3f51b5', position: 'relative', top: '-4px'}}
-    >
-      НАЗАД
-    </BackButton>
-    <ListButton basePath={basePath} label="К списку"/>
-    <EditButton basePath={basePath} record={data}/>
+    <BackButton>НАЗАД</BackButton>
+    <ListButton basepath={basepath} label="К списку"/>
+    {/*<EditButton basepath={basepath} record={data}/>*/}
   </TopToolbar>
 );
 

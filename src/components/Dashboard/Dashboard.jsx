@@ -6,6 +6,6 @@ import { Title } from 'react-admin'
 export const Dashboard = () => (
     <Card>
         <Title style={{fontWeight: '700'}} title="ООО 'Здоровье'" />
-        <CardContent>Главная!!</CardContent>
+        <CardContent>Главная</CardContent>
     </Card>
 );

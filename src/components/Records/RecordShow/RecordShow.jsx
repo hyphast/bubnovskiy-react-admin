@@ -2,15 +2,11 @@ import React from 'react';
 import {ArrayField, EditButton, ListButton, Show, SimpleShowLayout, TopToolbar,} from 'react-admin';
 import {BackButton} from '../../common/BackButtonAction/BackButtonAction';
 
-const UserShowActions = ({basePath, data, resource}) => (
+const UserShowActions = ({basepath, data, resource}) => (
   <TopToolbar>
-    <BackButton
-      style={{ color: '#3f51b5', position: 'relative', top: '-4px' }}
-    >
-      НАЗАД
-    </BackButton>
-    <ListButton basePath={basePath} label="К списку" />
-    <EditButton basePath={basePath} record={data}/>
+    <BackButton>НАЗАД</BackButton>
+    <ListButton basepath={basepath} label="К списку" />
+    <EditButton basepath={basepath} record={data}/>
   </TopToolbar>
 );
 
